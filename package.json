@@ -1,0 +1,11 @@
+{
+  "name": "af.node.js.dinjection",
+  "version": "1.0.0",
+  "description": "DDD template developed in TypeScript with dependency injection. Using MSSQL and InversifyJS.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "mario.gomez",
+  "license": "ISC"
+}
