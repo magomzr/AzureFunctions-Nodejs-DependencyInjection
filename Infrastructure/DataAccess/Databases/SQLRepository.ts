@@ -1,6 +1,7 @@
 import { ConnectionPool, Request, IProcedureResult, IRecordSet, VarChar, MAX } from 'mssql'
+import { ISQLRepository } from '../../../Domain/Interfaces/ISQLRepository';
 
-export class SQLRepository {
+export class SQLRepository implements ISQLRepository {
     constructor() { }
     /**
      * Execute a stored procedure.
@@ -9,22 +10,22 @@ export class SQLRepository {
      * @returns Stored procedure result.
      */
     async executeStoredProcedure(jsonParameters: any, storedProcedureName: string): Promise<any> {
-        var result: { [x: string]: IRecordSet<any>; } | IRecordSet<any>[];
+        let result: { [x: string]: IRecordSet<any>; } | IRecordSet<any>[];
         const conn: ConnectionPool = new ConnectionPool({
-            "user": process.env.USER,
-            "password": process.env.PASSWORD,
-            "server": process.env.SERVER,
-            "database": process.env.DATABASE,
-            "options": {
-                "encrypt": true
+            user: process.env.USER,
+            password: process.env.PASSWORD,
+            server: process.env.SERVER,
+            database: process.env.DATABASE,
+            options: {
+                encrypt: true
             }
         });
         await conn.connect()
             .then(async (conn) => {
                 const request: Request = new Request(conn);
-                request.input('json', VarChar(MAX), jsonParameters);
+                request.input('json', VarChar(MAX), JSON.stringify(jsonParameters));
                 const response: IProcedureResult<any> = await request.execute(storedProcedureName);
-                result = response.recordsets;
+                result = response.recordsets[0];
             });
         return result;
     }

@@ -1,5 +1,9 @@
 {
-  "name": "af.node.js.dinjection",
+  "name": "enterprise-azure-functions.nodejs",
+  "repository": {
+    "type": "git",
+    "directory": "https://github.com/mgomezarr/EnterpriseAzureFunctions.NodeJS.git"
+  },
   "version": "1.0.0",
   "description": "DDD template developed in TypeScript with dependency injection. Using MSSQL and InversifyJS.",
   "author": "mario.gomez",
@@ -12,7 +16,8 @@
   },
   "dependencies": {
     "@types/mssql": "^8.1.1",
-    "guid-typescript": "^1.0.9"
+    "guid-typescript": "^1.0.9",
+    "mssql": "^9.0.1"
   },
   "devDependencies": {
     "@azure/functions": "^3.0.0",

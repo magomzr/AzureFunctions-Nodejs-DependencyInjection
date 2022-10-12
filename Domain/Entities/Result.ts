@@ -1,8 +1,8 @@
 export class Result<T> {
-    constructor(options?: {Message?: string, Success?: boolean, Data?: T}) {
-        this.Message = options.Message || "Successful request";
-        this.Success = options.Success || false;
-        this.Data = options.Data || null;
+    constructor({Message = "Successful request", Success = false, Data = null}: {Message?: string, Success?: boolean, Data?: T}) {
+        this.Message = Message;
+        this.Success = Success;
+        this.Data = Data;
     }
 
     Message: string;

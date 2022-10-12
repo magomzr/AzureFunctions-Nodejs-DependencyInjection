@@ -11,10 +11,9 @@ export class EmployeeService {
     /**
      * Get Employee method. This will return an Employee as data in the defined Result DTO either if request is succesful or not.
      */
-    public static Get(): Result<Employee> {
-        const _employeeRepository = new EmployeeRepository();
+    public static async Get(): Promise<Result<Employee>> {
         try {
-            const response = _employeeRepository.Get();
+            const response = await EmployeeRepository.Get();
             return new Result<Employee>({
                 Success: true,
                 Data: response
@@ -31,9 +30,8 @@ export class EmployeeService {
      * Save Employee method. This will return a boolean as data in the defined Result DTO either if request is succesful or not.
      */
     public static Save(): Result<boolean> {
-        const _employeeRepository = new EmployeeRepository();
         try {
-            const response = _employeeRepository.Save();
+            const response = EmployeeRepository.Save();
             return new Result<boolean>({
                 Success: true,
                 Data: response
