@@ -2,10 +2,9 @@ import { Guid } from "guid-typescript";
 
 export class Employee {
     constructor() {
-        this.EmployeeId = Guid.create();
+        this.EmployeeId = Guid.create().toString();
     }
-
-    EmployeeId: Guid;
+    EmployeeId: string;
     DocumentTypeId: Guid;
     DocumentType: string;
     Document: string;

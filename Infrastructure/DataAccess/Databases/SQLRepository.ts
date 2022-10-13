@@ -18,8 +18,10 @@ export class SQLRepository implements ISQLRepository {
             password: process.env.PASSWORD,
             server: process.env.SERVER,
             database: process.env.DATABASE,
+            port: parseInt(process.env.PORT),
             options: {
-                encrypt: true
+                encrypt: true,
+                trustServerCertificate: true
             }
         });
         await conn.connect()
@@ -30,13 +32,5 @@ export class SQLRepository implements ISQLRepository {
                 result = response.recordsets[0];
             });
         return result;
-    }
-    
-    /**
-     * This is a test function to returns boolean results.
-     * @returns boolean.
-     */
-    saveMethod(): boolean {
-        return true;
     }
 }

@@ -1,6 +1,6 @@
 import { Employee } from "../Entities/Employee";
 
 export interface IEmployeeRepository {
-    Get(): Promise<any>;
-    Save(): boolean;
+    Get(document: string): Promise<Employee>;
+    Save(employee: Employee): Promise<boolean>;
 }

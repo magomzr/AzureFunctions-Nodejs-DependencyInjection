@@ -3,10 +3,12 @@
   "Values": {
     "AzureWebJobsStorage": "",
     "FUNCTIONS_WORKER_RUNTIME": "node",
-    "USER": "",
-    "PASSWORD": "",
-    "SERVER": "",
-    "DATABASE": "",
-    "SP_GET": ""
+    "USER": "sa",
+    "PASSWORD": "6a0b666c-02df-4ebd-bb0d-1ccc07a57652",
+    "SERVER": "localhost",
+    "DATABASE": "db.Company",
+    "PORT": 1433,
+    "SP_GET": "SP_GetEmployeeByDocument",
+    "SP_SAVE": "SP_InsertByEmployee"
   }
 }

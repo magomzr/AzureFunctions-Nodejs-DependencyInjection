@@ -1,5 +1,6 @@
 import { inject, injectable } from 'inversify';
 import { TYPES } from '../../../Application/Controllers/types';
+import { Employee } from '../../../Domain/Entities/Employee';
 import { IEmployeeRepository } from "../../../Domain/Interfaces/IEmployeeRepository";
 import { ISQLRepository } from "../../../Domain/Interfaces/ISQLRepository";
 
@@ -11,11 +12,13 @@ export class EmployeeRepository implements IEmployeeRepository {
         this._sqlRepository = sqlRepository;
     }
 
-    public async Get(): Promise<any> {
-        return await this._sqlRepository.executeStoredProcedure({}, process.env.SP_GET);
+    public async Get(document: string): Promise<Employee> {
+        return await this._sqlRepository.executeStoredProcedure({
+            document
+        }, process.env.SP_GET);
     }
 
-    public Save(): boolean {
-        return this._sqlRepository.saveMethod();
+    public Save(employee: Employee): Promise<boolean> {
+        return this._sqlRepository.executeStoredProcedure(employee, process.env.SP_SAVE);
     }
 }
