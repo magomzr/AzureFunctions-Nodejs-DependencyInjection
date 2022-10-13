@@ -1,22 +1,21 @@
-import { Employee } from "../../../Domain/Entities/Employee";
+import { inject, injectable } from 'inversify';
+import { TYPES } from '../../../Application/Controllers/types';
 import { IEmployeeRepository } from "../../../Domain/Interfaces/IEmployeeRepository";
 import { ISQLRepository } from "../../../Domain/Interfaces/ISQLRepository";
-import { SQLRepository } from "../Databases/SQLRepository";
 
+@injectable()
 export class EmployeeRepository implements IEmployeeRepository {
-    private readonly _sqlRepository: ISQLRepository;
-    
-    constructor(sqlRepository: ISQLRepository) {
+    private _sqlRepository: ISQLRepository;
+
+    constructor(@inject(TYPES.ISQLRepository) sqlRepository: ISQLRepository) {
         this._sqlRepository = sqlRepository;
     }
 
-    static async Get(): Promise<any> {
-        const sqlRepository: SQLRepository = new SQLRepository();
-        const result = await sqlRepository.executeStoredProcedure({}, process.env.SP_GET);
-        return result;
+    public async Get(): Promise<any> {
+        return await this._sqlRepository.executeStoredProcedure({}, process.env.SP_GET);
     }
 
-    static Save(): boolean {
-        return true;
+    public Save(): boolean {
+        return this._sqlRepository.saveMethod();
     }
 }

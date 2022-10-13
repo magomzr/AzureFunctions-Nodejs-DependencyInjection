@@ -1,19 +1,22 @@
+import { inject, injectable } from "inversify";
 import { Employee } from "../../Domain/Entities/Employee";
 import { Result } from "../../Domain/Entities/Result";
-import { EmployeeRepository } from "../../Infrastructure/DataAccess/Repositories/EmployeeRepository";
+import { IEmployeeRepository } from "../../Domain/Interfaces/IEmployeeRepository";
+import { TYPES } from "../Controllers/types";
 
+@injectable()
 export class EmployeeService {
-    private _employeeRepository: EmployeeRepository;
-    constructor(employeeRepository: EmployeeRepository) {
-        this._employeeRepository = employeeRepository
+    private _employeeRepository: IEmployeeRepository;
+    constructor(@inject(TYPES.IEmployeeRepository) employeeRepository: IEmployeeRepository) {
+        this._employeeRepository = employeeRepository;
     }
 
     /**
      * Get Employee method. This will return an Employee as data in the defined Result DTO either if request is succesful or not.
      */
-    public static async Get(): Promise<Result<Employee>> {
+    public async Get(): Promise<Result<Employee>> {
         try {
-            const response = await EmployeeRepository.Get();
+            const response = await this._employeeRepository.Get();
             return new Result<Employee>({
                 Success: true,
                 Data: response
@@ -29,9 +32,9 @@ export class EmployeeService {
     /**
      * Save Employee method. This will return a boolean as data in the defined Result DTO either if request is succesful or not.
      */
-    public static Save(): Result<boolean> {
+    public Save(): Result<boolean> {
         try {
-            const response = EmployeeRepository.Save();
+            const response = this._employeeRepository.Save();
             return new Result<boolean>({
                 Success: true,
                 Data: response

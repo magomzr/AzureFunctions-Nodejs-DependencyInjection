@@ -17,7 +17,9 @@
   "dependencies": {
     "@types/mssql": "^8.1.1",
     "guid-typescript": "^1.0.9",
-    "mssql": "^9.0.1"
+    "inversify": "^6.0.1",
+    "mssql": "^9.0.1",
+    "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
     "@azure/functions": "^3.0.0",

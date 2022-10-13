@@ -3,10 +3,10 @@
   "Values": {
     "AzureWebJobsStorage": "",
     "FUNCTIONS_WORKER_RUNTIME": "node",
-    "USER": "usrdbdreddv2dev",
-    "PASSWORD": "96E47932-7CC2-980E-84DB-TSBDCE79E0F8",
-    "SERVER": "sql-common-dev-ol.database.windows.net",
-    "DATABASE": "db-dredd-v2-dev",
+    "USER": "",
+    "PASSWORD": "",
+    "SERVER": "",
+    "DATABASE": "",
     "SP_GET": ""
   }
 }

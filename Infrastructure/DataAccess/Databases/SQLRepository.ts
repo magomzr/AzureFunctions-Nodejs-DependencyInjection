@@ -1,6 +1,8 @@
+import { injectable } from 'inversify';
 import { ConnectionPool, Request, IProcedureResult, IRecordSet, VarChar, MAX } from 'mssql'
 import { ISQLRepository } from '../../../Domain/Interfaces/ISQLRepository';
 
+@injectable()
 export class SQLRepository implements ISQLRepository {
     constructor() { }
     /**
@@ -28,5 +30,13 @@ export class SQLRepository implements ISQLRepository {
                 result = response.recordsets[0];
             });
         return result;
+    }
+    
+    /**
+     * This is a test function to returns boolean results.
+     * @returns boolean.
+     */
+    saveMethod(): boolean {
+        return true;
     }
 }
