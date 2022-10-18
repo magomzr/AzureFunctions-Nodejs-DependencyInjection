@@ -1,8 +1,7 @@
 {
-  "name": "enterprise-azure-functions.nodejs",
+  "name": "azure-functions.nodejs.dinjection",
   "repository": {
-    "type": "git",
-    "directory": "https://github.com/mgomezarr/EnterpriseAzureFunctions.NodeJS.git"
+    "type": "git"
   },
   "version": "1.0.0",
   "description": "DDD template developed in TypeScript with dependency injection. Using MSSQL and InversifyJS.",
