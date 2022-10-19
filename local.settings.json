@@ -9,6 +9,7 @@
     "DATABASE": "db.Company",
     "PORT": 1433,
     "SP_GET": "SP_GetEmployeeByDocument",
-    "SP_SAVE": "SP_InsertByEmployee"
+    "SP_SAVE": "SP_InsertByEmployee",
+    "SB_CONNECTIONSTRING": ""
   }
 }

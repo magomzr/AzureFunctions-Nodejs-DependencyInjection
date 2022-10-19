@@ -51,7 +51,7 @@ Having said that and using a DDD architecture, it is suggested to use the follow
     │   │   ├── UserRequest.ts
     │   │   └── ...
     │   ├── Interfaces
-    │   │   ├── ISQLRepository.ts
+    │   │   ├── ISQLConnection.ts
     │   │   ├── IEmployeeRepository.ts
     │   │   └── ...
     ├── Infrastructure
@@ -69,7 +69,7 @@ Having said that and using a DDD architecture, it is suggested to use the follow
     │   │   │   └── ...
     │   ├── DataAccess
     │   │   ├── Databases
-    │   │   │   └── SQLRepository.ts
+    │   │   │   └── SQLConnection.ts
     │   ├── ├── Repositories
     │   │   │   ├── EmployeeRepository.ts
     │   │   │   ├── ChatbotRepository.ts
@@ -118,7 +118,7 @@ Dependency injection needs to set the defined types as identifiers per run. Symb
 // Application/Controllers/types.ts
 
 export const TYPES = {
-    ISQLRepository: Symbol.for("ISQLRepository"),
+    ISQLConnection: Symbol.for("ISQLConnection"),
     IEmployeeRepository: Symbol.for("IEmployeeRepository"),
     ...
 };
@@ -129,9 +129,9 @@ We will use `@inject` in the constructor to inject the dependencies where we nee
 ```ts
 ...
 export class EmployeeRepository implements IEmployeeRepository {
-    private _sqlRepository: ISQLRepository;
-    constructor(@inject(TYPES.ISQLRepository) sqlRepository: ISQLRepository) {
-        this._sqlRepository = sqlRepository;
+    private _sqlConnection: ISQLConnection;
+    constructor(@inject(TYPES.ISQLConnection) SQLConnection: ISQLConnection) {
+        this._sqlConnection = SQLConnection;
     }
     ...
 ```
@@ -152,15 +152,15 @@ Similar to C# `Startup.cs`, this container is where we will have the injection l
 import 'reflect-metadata'; // This is the only place where 'reflect-metadata' should be imported and it should be only once in the whole project.
 import { Container } from 'inversify';
 import { IEmployeeRepository } from '../../Domain/Interfaces/IEmployeeRepository';
-import { ISQLRepository } from '../../Domain/Interfaces/ISQLRepository';
-import { SQLRepository } from '../../Infrastructure/DataAccess/Databases/SQLRepository';
+import { ISQLConnection } from '../../Domain/Interfaces/ISQLConnection';
+import { SQLConnection } from '../../Infrastructure/DataAccess/Databases/SQLConnection';
 import { EmployeeRepository } from '../../Infrastructure/DataAccess/Repositories/EmployeeRepository';
 import { EmployeeService } from '../Services/EmployeeService';
 import { TYPES } from './types';
 
 const StartupBuilder = new Container();
 
-StartupBuilder.bind<ISQLRepository>(TYPES.ISQLRepository).to(SQLRepository).inTransientScope();
+StartupBuilder.bind<ISQLConnection>(TYPES.ISQLConnection).to(SQLConnection).inTransientScope();
 StartupBuilder.bind<IEmployeeRepository>(TYPES.IEmployeeRepository).to(EmployeeRepository).inSingletonScope();
 StartupBuilder.bind(EmployeeService).toSelf().inSingletonScope(); // Without interface.
 

@@ -1,9 +1,9 @@
 import { injectable } from 'inversify';
 import { ConnectionPool, Request, IProcedureResult, IRecordSet, VarChar, MAX } from 'mssql'
-import { ISQLRepository } from '../../../Domain/Interfaces/ISQLRepository';
+import { ISQLConnection } from '../../../Domain/Interfaces/ISQLConnection';
 
 @injectable()
-export class SQLRepository implements ISQLRepository {
+export class SQLConnection implements ISQLConnection {
     constructor() { }
     /**
      * Execute a stored procedure.

@@ -1,6 +1,7 @@
 // Our identifiers
 
 export const TYPES = {
-    ISQLRepository: Symbol.for("ISQLRepository"),
-    IEmployeeRepository: Symbol.for("IEmployeeRepository")
+    ISQLConnection: Symbol.for("ISQLConnection"),
+    IEmployeeRepository: Symbol.for("IEmployeeRepository"),
+    IAzureServiceBusClient: Symbol.for("IAzureServiceBusClient")
 };
