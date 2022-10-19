@@ -1,14 +1,18 @@
 import { inject, injectable } from "inversify";
-import { Employee } from "../../Domain/Entities/Employee";
-import { Result } from "../../Domain/Entities/Result";
-import { IEmployeeRepository } from "../../Domain/Interfaces/IEmployeeRepository";
+import { Employee, Result } from "../../Domain/Entities";
+import { IEmployeeRepository, IServiceBusFunction } from "../../Domain/Interfaces";
 import { TYPES } from "../Controllers/types";
 
 @injectable()
 export class EmployeeService {
     private _employeeRepository: IEmployeeRepository;
-    constructor(@inject(TYPES.IEmployeeRepository) employeeRepository: IEmployeeRepository) {
+    private _sbFunction: IServiceBusFunction;
+    constructor(
+        @inject(TYPES.IEmployeeRepository) employeeRepository: IEmployeeRepository,
+        @inject(TYPES.IServiceBusFunction) sbFunction: IServiceBusFunction
+    ) {
         this._employeeRepository = employeeRepository;
+        this._sbFunction = sbFunction;
     }
 
     /**
@@ -17,6 +21,7 @@ export class EmployeeService {
     public async Get(document: string): Promise<Result<Employee>> {
         try {
             const response: Employee = await this._employeeRepository.Get(document);
+            // await this._sbFunction.SendMessageToQueue('test', 'useraction');
             return new Result<Employee>({
                 Success: true,
                 Data: response

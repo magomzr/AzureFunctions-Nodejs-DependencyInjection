@@ -1,8 +1,7 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
 import { StartupBuilder } from "../Application/Controllers/inversify.config";
 import { EmployeeService } from "../Application/Services/EmployeeService";
-import { Employee } from "../Domain/Entities/Employee";
-import { Result } from "../Domain/Entities/Result";
+import { Employee, Result } from "../Domain/Entities";
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
     context.log('HTTP trigger function processed a request.');

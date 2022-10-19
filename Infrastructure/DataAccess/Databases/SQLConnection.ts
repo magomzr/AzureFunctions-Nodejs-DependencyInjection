@@ -1,19 +1,15 @@
 import { injectable } from 'inversify';
 import { ConnectionPool, Request, IProcedureResult, IRecordSet, VarChar, MAX } from 'mssql'
-import { ISQLConnection } from '../../../Domain/Interfaces/ISQLConnection';
 
 @injectable()
-export class SQLConnection implements ISQLConnection {
+export class SQLConnection {
     constructor() { }
+
     /**
-     * Execute a stored procedure.
-     * @param jsonParameters Sending parameters to stored procedure as an object.
-     * @param storedProcedureName Stored procedure name defined in database.
-     * @returns Stored procedure result.
+     * Creating a connection pool.
      */
-    async executeStoredProcedure(jsonParameters: any, storedProcedureName: string): Promise<any> {
-        let result: { [x: string]: IRecordSet<any>; } | IRecordSet<any>[];
-        const conn: ConnectionPool = new ConnectionPool({
+    private get _connectionPool(): ConnectionPool {
+        return new ConnectionPool({
             user: process.env.USER,
             password: process.env.PASSWORD,
             server: process.env.SERVER,
@@ -24,7 +20,17 @@ export class SQLConnection implements ISQLConnection {
                 trustServerCertificate: true
             }
         });
-        await conn.connect()
+    };
+
+    /**
+     * Execute a stored procedure.
+     * @param jsonParameters Sending parameters to stored procedure as an object.
+     * @param storedProcedureName Stored procedure name defined in database.
+     * @returns Stored procedure result.
+     */
+    public async executeStoredProcedure(jsonParameters: any, storedProcedureName: string): Promise<any> {
+        let result: { [x: string]: IRecordSet<any>; } | IRecordSet<any>[];
+        await this._connectionPool.connect()
             .then(async (conn) => {
                 const request: Request = new Request(conn);
                 request.input('json', VarChar(MAX), JSON.stringify(jsonParameters));
@@ -32,5 +38,5 @@ export class SQLConnection implements ISQLConnection {
                 result = response.recordsets[0];
             });
         return result;
-    }
-}
+    };
+};

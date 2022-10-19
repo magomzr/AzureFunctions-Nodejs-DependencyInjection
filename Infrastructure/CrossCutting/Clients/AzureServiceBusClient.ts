@@ -1,16 +1,21 @@
-import { IAzureServiceBusClient } from "../../../Domain/Interfaces/IAzureServiceBusClient";
-import { ServiceBusClient, ServiceBusMessage, ServiceBusSender } from '@azure/service-bus'
+import { ServiceBusClient, ServiceBusSender } from '@azure/service-bus'
+import { injectable } from 'inversify';
 
-export class AzureServiceBusClient implements IAzureServiceBusClient {
+@injectable()
+export class AzureServiceBusClient {
     constructor() { }
+
+    private get _servicebusClient(): ServiceBusClient {
+        return new ServiceBusClient(process.env.SB_CONNECTIONSTRING);
+    }
+
     /**
      * Send message to Azure Service Bus queue.
      * @param message Messages to send.
      * @param sbQueueName Queue name as string.
      */
-    async sendMesageToQueue(message: any, sbQueueName: string): Promise<void> {
-        const sbClient: ServiceBusClient = new ServiceBusClient(process.env.SB_CONNECTIONSTRING);
-        const sender: ServiceBusSender = sbClient.createSender(sbQueueName);
+    public async sendMesageToQueue(message: any, sbQueueName: string): Promise<void> {
+        const sender: ServiceBusSender = this._servicebusClient.createSender(sbQueueName);
         await sender.sendMessages([{ body: message }]);
     }
-}
+};

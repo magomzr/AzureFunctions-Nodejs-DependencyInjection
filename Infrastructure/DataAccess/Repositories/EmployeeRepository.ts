@@ -1,8 +1,7 @@
 import { inject, injectable } from 'inversify';
 import { TYPES } from '../../../Application/Controllers/types';
-import { Employee } from '../../../Domain/Entities/Employee';
-import { IEmployeeRepository } from "../../../Domain/Interfaces/IEmployeeRepository";
-import { ISQLConnection } from "../../../Domain/Interfaces/ISQLConnection";
+import { Employee } from '../../../Domain/Entities';
+import { IEmployeeRepository, ISQLConnection } from '../../../Domain/Interfaces';
 
 @injectable()
 export class EmployeeRepository implements IEmployeeRepository {
