@@ -6,20 +6,10 @@ export class SQLConnection {
     constructor() { }
 
     /**
-     * Creating a connection pool.
+     * Creating a connection pool using a SQL connection string.
      */
     private get _connectionPool(): ConnectionPool {
-        return new ConnectionPool({
-            user: process.env.USER,
-            password: process.env.PASSWORD,
-            server: process.env.SERVER,
-            database: process.env.DATABASE,
-            port: parseInt(process.env.PORT),
-            options: {
-                encrypt: true,
-                trustServerCertificate: true
-            }
-        });
+        return new ConnectionPool(process.env.SQL_CONNECTIONSTRING);
     };
 
     /**

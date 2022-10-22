@@ -21,18 +21,18 @@ export class EmployeeService {
     public async Get(document: string): Promise<Result<Employee>> {
         try {
             const response: Employee = await this._employeeRepository.Get(document);
-            // await this._sbFunction.SendMessageToQueue('test', 'useraction');
             return new Result<Employee>({
                 Success: true,
                 Data: response
             });
         } catch (error) {
 
+            await this._sbFunction.SendMessageToQueue(error, process.env.ERROR_QUEUE);
             return new Result<Employee>({
                 Message: `${error}`
             });
-        }
-    }
+        };
+    };
 
     /**
      * Save Employee method. This will return a boolean as data in the defined Result DTO either if request is succesful or not.
@@ -45,6 +45,7 @@ export class EmployeeService {
                 Data: response
             });
         } catch (error) {
+            await this._sbFunction.SendMessageToQueue(error, process.env.ERROR_QUEUE);
             return new Result<boolean>({
                 Message: `${error}`
             });
