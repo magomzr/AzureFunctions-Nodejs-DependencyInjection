@@ -3,5 +3,4 @@ export const TYPES = {
     IEmployeeRepository: Symbol.for("IEmployeeRepository"),
     IAzureServiceBusClient: Symbol.for("IAzureServiceBusClient"),
     IServiceBusFunction: Symbol.for("IServiceBusFunction"),
-    IKeyVaultClient: Symbol.for("IKeyVaultClient")
 };

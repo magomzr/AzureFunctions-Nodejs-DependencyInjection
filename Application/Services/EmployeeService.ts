@@ -3,6 +3,9 @@ import { Employee, Result } from "../../Domain/Entities";
 import { IEmployeeRepository, IServiceBusFunction } from "../../Domain/Interfaces";
 import { TYPES } from "../Controllers/types";
 
+/**
+ * Application class with business service logic. Clean architecture/DDD structure.
+ */
 @injectable()
 export class EmployeeService {
     private _employeeRepository: IEmployeeRepository;
@@ -17,6 +20,8 @@ export class EmployeeService {
 
     /**
      * Get Employee method. This will return an Employee as data in the defined Result DTO either if request is succesful or not.
+     * @param document Employee document number.
+     * @returns `Result` DTO.
      */
     public async Get(document: string): Promise<Result<Employee>> {
         try {
@@ -26,7 +31,6 @@ export class EmployeeService {
                 Data: response
             });
         } catch (error) {
-
             await this._sbFunction.SendMessageToQueue(error, process.env.ERROR_QUEUE);
             return new Result<Employee>({
                 Message: `${error}`
@@ -35,7 +39,9 @@ export class EmployeeService {
     };
 
     /**
-     * Save Employee method. This will return a boolean as data in the defined Result DTO either if request is succesful or not.
+     * Save Employee method. This will return a boolean as data in the defined Result DTO.
+     * @param employee `Employee` object.
+     * @returns boolean. `true` if successful.
      */
     public async Save(employee: Employee): Promise<Result<boolean>> {
         try {
