@@ -14,10 +14,7 @@
     "test": "jest --verbose"
   },
   "dependencies": {
-    "@azure/identity": "^3.0.0",
-    "@azure/keyvault-secrets": "^4.6.0",
     "@azure/service-bus": "^7.7.2",
-    "@google-cloud/dialogflow-cx": "^3.1.1",
     "@types/mssql": "^8.1.1",
     "guid-typescript": "^1.0.9",
     "inversify": "^6.0.1",

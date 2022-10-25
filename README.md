@@ -79,6 +79,37 @@ Having said that and using a DDD architecture, it is suggested to use the follow
     ├── tsconfig.json
     ├── package.json
     └── ...
+## Response
+Sending a HTTP POST request to `http://localhost:7071/api/GetEmployee`.
+
+### Body
+```json
+{
+    "document": "1102345678"
+}
+```
+
+### Response
+```json
+{
+  "Message": "Successful request",
+  "Success": true,
+  "Data": [
+    {
+      "EmployeeId": "B6FB6CB7-73FB-C4A7-6A2C-DE463DB95BAE",
+      "FirstName": "MARIO",
+      "LastName": "GOMEZ",
+      "DocumentType": "Tarjeta de Identidad",
+      "Document": "1102345678",
+      "DocumentTypeId": "59EEE721-5C89-496A-946E-D5796F2213AD",
+      "Age": 24,
+      "Area": "Aplicaciones",
+      "SubArea": "Desarrollo",
+      "SubAreaId": "2AE73825-8CCA-4D59-A001-55DC5DAC7837"
+    }
+  ]
+}
+```
 ## Project configuration
 We proceed to install the `inversify` and `reflect-metadata` packages as devDependencies:
 ```sh
